@@ -5,6 +5,7 @@ $con = mysqli_connect("localhost","root","","fakultas");
 // Cek konekksi dengan mySQL
 if(mysqli_connect_errno()){
     echo "Koneksi gagal ". mysqli_connect_error();
+    Keluar();
 }else{
     echo "Koneksi berhasil";
 }
@@ -13,9 +14,8 @@ if(mysqli_connect_errno()){
 $query = "SELECT * FROM mahasiswa";
 
 // tampilkan data dengan menjalankan sql query
-$result = mysqli_query($con,$query);
 $mahasiswa = [];
-if ($result){
+if ($result = mysqli_query($con,$query)){
     // tampilkan data satu per satu
     while($row = mysqli_fetch_assoc($result)){
         $mahasiswa[] = $row;
@@ -38,15 +38,27 @@ mysqli_close($con);
 </head>
 <body>
     <h1>Data Mahasiswa</h1>
-    <table border="1" style="witdh: 100%;">
+    <a href="insert.php">Tambah Data</a>
+    <table border="1" style="width: 100%;">
         <tr>
             <th>NIM</th>
             <th>Nama</th>
+            <th>Tempat Lahir</th>
+            <th>Tanggal Lahir</th>
+            <th>Alamat</th>
+            <th>Action</th>
         </tr>
-        <?php foreach($mahasiswa as $value): ?>
+        <?php foreach($mahasiswa as $row): ?>
         <tr>
-            <td><?php echo $value ["nim"]; ?></td>
-            <td><?php echo $value ["nama"]; ?></td>
+            <td><?php echo $row ['nim']; ?></td>
+            <td><?php echo $row ['nama']; ?></td>
+            <td><?php echo $row ['tempat_lahir']; ?></td>
+            <td><?php echo $row ['tanggal_lahir']; ?></td>
+            <td><?php echo $row ['alamat']; ?></td>
+            <td>
+                <a href="update.php?id=<?= $row['id'] ?>" >Edit</a> | 
+                <a href="delete.php?id=<?= $row['id'] ?>" >Delete</a>
+            </td>
         </tr>
         <?php endforeach; ?>
     </table>
