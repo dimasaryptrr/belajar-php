@@ -5,7 +5,7 @@ if (isset($_GET['id'])){
     $id = $_GET['id'];
 
     //buat koneksi dengan mysql
-    $con = mysqli_connect("localhost","root","","fakultas");
+    $con = mysqli_connect("localhost","root","","todolist");
 
     // cek koneksi
     if (mysqli_connect_errno()) {
@@ -15,7 +15,7 @@ if (isset($_GET['id'])){
         echo 'Koneksi berhasil';
     }
 
-    $sql = "DELETE FROM mahasiswa WHERE id='$id' ";
+    $sql = "DELETE FROM todo WHERE id='$id' ";
 
     if (mysqli_query($con, $sql)) {
         echo "Data berhasil dihapus";
